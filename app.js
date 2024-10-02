@@ -12,7 +12,11 @@ const photoController = require('./controllers/photoControllers');
 const app = express();
 
 
-mongoose.connect('mongodb://localhost/pcat-test-db');
+mongoose.connect('mongodb://localhost/pcat-test-db').then(() => {
+   console.log('bağlanıldı')
+}).catch((err) => {
+   console.log(err)
+});
 
 app.set("view engine", 'ejs');
 
@@ -31,7 +35,7 @@ app.get('/photos/:id', photoController.getPhoto);
 app.post('/photos', photoController.createPhoto);
 app.put('/photos/:id', photoController.updatePhoto);
 app.delete('/photos/:id', photoController.deletePhoto)
-app.get('/about', photoController.getAboutPage );
+app.get('/about', photoController.getAboutPage);
 app.get('/add', photoController.addPhoto);
 app.get('/photos/edit/:id', photoController.getEditPage);
 
